@@ -41,6 +41,10 @@ describe GildedRose do
     context "when item name is 'Aged Brie'" do
       let(:name) { 'Aged Brie' }
 
+      it "lowers the item sellin by 1" do
+        expect(item.sell_in).to eq 4
+      end
+
       it "increases quality the older it gets" do
         expect(item.quality).to eq 11 # from 10 it goes to 11
       end
@@ -75,6 +79,10 @@ describe GildedRose do
 
     context "when item name is 'Backstage passes to a TAFKAL80ETC concert'" do
       let(:name) { 'Backstage passes to a TAFKAL80ETC concert' }
+
+      it "lowers the item sellin by 1" do
+        expect(item.sell_in).to eq 4
+      end
 
       context "and sell in is 11 days" do
         let(:initial_sell_in) { 11 }
@@ -156,6 +164,36 @@ describe GildedRose do
       it "normal item should should lower their sellin and quality by 1" do
         expect(items[0].sell_in).to eq(4)
         expect(items[0].quality).to eq(9)
+      end
+    end
+
+    context "when item name is 'Conjured'" do
+      let(:name) { 'Conjured' }
+
+      it "lowers the item sellin by 1" do
+        expect(item.sell_in).to eq 4
+      end
+
+      context "and sell in is 10" do
+        let(:initial_sell_in) { 10 }
+        it "quality degraded by 2" do
+          expect(item.quality).to eq 8
+        end
+      end
+
+      context "and sell in is -1" do
+        let(:initial_sell_in) { -1 }
+        it "quality degraded by 4" do
+          expect(item.quality).to eq 6
+        end
+      end
+
+      context "and quality is 0" do
+        let(:initial_quality) { 0 }
+
+        it "cannot go negative" do
+          expect(item.quality).to be >=0
+        end
       end
     end
   end
