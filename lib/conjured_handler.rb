@@ -10,7 +10,12 @@ class ConjuredHandler < BaseItemHandler
     # early return if quality is already at min
     return if is_min_quality(item.quality)
 
-    quality = item.quality - 2
+    if item.sell_in > 0
+      quality = item.quality - 2
+    else
+      quality = item.quality - 4
+    end
+
     item.quality = quality if is_at_least_quality(quality)
   end
 

@@ -181,6 +181,13 @@ describe GildedRose do
         end
       end
 
+      context "and sell in is -1" do
+        let(:initial_sell_in) { -1 }
+        it "quality degraded by 4" do
+          expect(item.quality).to eq 6
+        end
+      end
+
       context "and quality is 0" do
         let(:initial_quality) { 0 }
 
